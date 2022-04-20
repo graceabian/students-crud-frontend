@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import StudentDataService from "../services/StudentService";
 import { useTable } from "react-table";
+import { useNavigate } from "react-router-dom";
 
 const StudentsList = (props) => {
   const [students, setStudents] = useState([]);
   const [searchName, setSearchName] = useState("");
   const studentsRef = useRef();
+  const navigate = useNavigate();
 
   studentsRef.current = students;
 
@@ -57,8 +59,7 @@ const StudentsList = (props) => {
 
   const openStudent = (rowIndex) => {
     const id = studentsRef.current[rowIndex].id;
-
-    props.history.push("/students/" + id);
+    navigate("/students/" + id);
   };
 
   const deleteStudent = (rowIndex) => {
@@ -66,14 +67,17 @@ const StudentsList = (props) => {
 
     StudentDataService.remove(id)
       .then((response) => {
-        props.history.push("/students");
+        navigate("/students/");
+        //let history = useNavigate();
+        //history.push("/students/");
+        //props.history.push("/students");
 
         let newStudents = [...studentsRef.current];
         newStudents.splice(rowIndex, 1);
 
         setStudents(newStudents);
         setDeleteMessage("Student deleted successfully.");
-        refreshList();
+        //refreshList();
       })
       .catch((e) => {
         console.log(e);
@@ -176,11 +180,11 @@ const StudentsList = (props) => {
           </tbody>
         </table>
       </div>
-      <p></p>
+      {/* <p></p>
       <div className="alert alert-light">
         <p className="error text-danger"> {deleteMessage} </p>
       </div>
-      <p></p>
+      <p></p> */}
       <div className="col-md-8">
         <button className="btn btn-sm btn-danger" onClick={removeAllStudents}>
           Delete All Students

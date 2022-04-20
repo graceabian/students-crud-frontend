@@ -62,9 +62,9 @@ const AddStudent = () => {
     <div className="submit-form">
       {submitted ? (
         <div>
-          <h4>Student details submitted successfully!</h4>
+          <h4>Student entry created successfully!</h4>
           <button className="btn btn-success" onClick={newStudent}>
-            Add
+            Create
           </button>
         </div>
       ) : (
@@ -116,7 +116,7 @@ const AddStudent = () => {
           </div>
           <br></br>
           <button onClick={saveStudent} className="btn btn-success">
-            Submit
+            Create
           </button>{" "}
           <p></p>
           <div className="alert alert-light">

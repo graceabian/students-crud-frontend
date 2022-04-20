@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import StudentDataService from "../services/StudentService";
+import { Link, useParams } from "react-router-dom";
 
 const Student = (props) => {
   const initialStudentState = {
@@ -10,6 +11,7 @@ const Student = (props) => {
   };
   const [currentStudent, setCurrentStudent] = useState(initialStudentState);
   const [message, setMessage] = useState("");
+  const { id } = useParams();
 
   const getStudent = (id) => {
     StudentDataService.get(id)
@@ -23,8 +25,8 @@ const Student = (props) => {
   };
 
   useEffect(() => {
-    getStudent(props.match.params.id);
-  }, [props.match.params.id]);
+    getStudent(id);
+  }, [id]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -102,51 +104,38 @@ const Student = (props) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="gender">Gender</label>
-
-              <div className="radio">
-                <label>
-                  <input
-                    type="radio"
-                    value="Male"
-                    checked={this.state.gender === "Male"}
-                    onChange={this.onChangeGender}
-                  />
-                  &nbsp;&nbsp;Male
-                </label>
-              </div>
-              <div className="radio">
-                <label>
-                  <input
-                    type="radio"
-                    value="Female"
-                    checked={this.state.gender === "Female"}
-                    onChange={this.onChangeGender}
-                  />
-                  &nbsp;&nbsp;Female
-                </label>
-              </div>
-              <div className="radio">
-                <label>
-                  <input
-                    type="radio"
-                    value="Other"
-                    checked={this.state.gender === "Other"}
-                    onChange={this.onChangeGender}
-                  />
-                  &nbsp;&nbsp;Other
-                </label>
-              </div>
+              <label htmlFor="gender">Gender</label> &nbsp; &nbsp;
+              <input
+                type="radio"
+                value="male"
+                id="male"
+                onChange={handleInputChange}
+                checked={currentStudent.gender === "male"}
+                name="gender"
+              />{" "}
+              <label for="male">Male</label>&nbsp; &nbsp;
+              <input
+                type="radio"
+                value="female"
+                id="female"
+                onChange={handleInputChange}
+                checked={currentStudent.gender === "female"}
+                name="gender"
+              />{" "}
+              <label for="female">Female</label>
             </div>
           </form>
 
-          <button className="badge badge-danger mr-2" onClick={deleteStudent}>
+          {/* <button
+            className="btn btn-sm btn-danger mr-2"
+            onClick={deleteStudent}
+          >
             Delete
-          </button>
-
+          </button> */}
+          <p></p>
           <button
             type="submit"
-            className="badge badge-success"
+            className="btn btn-sm btn-primary"
             onClick={updateStudent}
           >
             Update
