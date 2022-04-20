@@ -9,6 +9,8 @@ const StudentsList = (props) => {
 
   studentsRef.current = students;
 
+  const [deleteMessage, setDeleteMessage] = useState("");
+
   useEffect(() => {
     retrieveStudents();
   }, []);
@@ -70,6 +72,8 @@ const StudentsList = (props) => {
         newStudents.splice(rowIndex, 1);
 
         setStudents(newStudents);
+        setDeleteMessage("Student deleted successfully.");
+        refreshList();
       })
       .catch((e) => {
         console.log(e);
@@ -120,7 +124,7 @@ const StudentsList = (props) => {
 
   return (
     <div className="list row">
-      <div className="col-md-8">
+      {/* <div className="col-md-8">
         <div className="input-group mb-3">
           <input
             type="text"
@@ -139,7 +143,7 @@ const StudentsList = (props) => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="col-md-12 list">
         <table
           className="table table-striped table-bordered"
@@ -172,10 +176,14 @@ const StudentsList = (props) => {
           </tbody>
         </table>
       </div>
-
+      <p></p>
+      <div className="alert alert-light">
+        <p className="error text-danger"> {deleteMessage} </p>
+      </div>
+      <p></p>
       <div className="col-md-8">
         <button className="btn btn-sm btn-danger" onClick={removeAllStudents}>
-          Remove All
+          Delete All Students
         </button>
       </div>
     </div>
